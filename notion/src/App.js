@@ -13,14 +13,14 @@ function App() {
     console.log("a");
     firebase
       .firestore()
-      .collection("notes")
+      .collection("Notion")
       .onSnapshot((serverUpdate) => {
-        const notes = serverUpdate.docs.map((_doc) => {
+        const notesFromDB = serverUpdate.docs.map((_doc) => {
           const data = _doc.data();
           data["id"] = _doc.id;
           return data;
         });
-        setNotes(notes);
+        setNotes(notesFromDB);
         console.log("b");
       });
   }, []);
@@ -31,8 +31,7 @@ function App() {
   };
 
   const noteUpdate = (id, noteObj) => {
-    console.log("c");
-    firebase.firestore().collection("notes").doc(id).update({
+    firebase.firestore().collection("Notion").doc(id).update({
       title: noteObj.title,
       body: noteObj.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -45,13 +44,13 @@ function App() {
       body: "",
     };
 
-    const newFromDB = await firebase.firestore().collection("notes").add({
+    const newFromDB = await firebase.firestore().collection("Notion").add({
       title: note.title,
       body: note.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     const newID = newFromDB.id;
-    await setNotes({ notes: [...notes, note] });
+    await setNotes([...notes, note]);
     const newNoteIndex = notes.indexOf(
       notes.filter((_note) => _note.id === newID)[0]
     );
@@ -61,17 +60,15 @@ function App() {
 
   const deleteNote = async (note) => {
     const noteIndex = notes.indexOf(note);
-    await setNotes({
-      notes: notes.filter((_note) => _note !== note),
-    });
-    if (this.state.selectedNoteIndex === noteIndex) {
+    await setNotes(notes.filter((_note) => _note !== note));
+    if (selectedNoteIndex === noteIndex) {
       selectNote(null , null)
     } else {
-      this.state.notes.length > 1
-        ?selectNote(notes[this.state.selectedNoteIndex - 1],selectedNoteIndex - 1)
+      notes.length > 1
+        ?selectNote(notes[selectedNoteIndex - 1],selectedNoteIndex - 1)
         :selectNote(null, null)
     }
-    firebase.firestore().collection("notes").doc(note.id).delete();
+    firebase.firestore().collection("Notion").doc(note.id).delete();
   };
 
   return (

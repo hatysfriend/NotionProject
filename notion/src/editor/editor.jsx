@@ -12,21 +12,20 @@ export default function EditorComponent({ selectedNote, selectedNoteIndex, notes
     const [title, Settitle] = useState('');
     const [id, SetId] = useState('');
 
-
-     useEffect(() => {
+    useEffect(() => {
         SetBody(selectedNote.body);
         Settitle(selectedNote.title);
         SetId(selectedNote.id);
-    }, []);
+    }, [selectedNote.body, selectedNote.id, selectedNote.title]);
 
     useEffect(() => {
         if (selectedNote.id !== id) {
-        SetBody(selectedNote.body);
-        Settitle(selectedNote.title);
-        SetId(selectedNote.id);
+            SetBody(selectedNote.body);
+            Settitle(selectedNote.title);
+            SetId(selectedNote.id);
         }
-    }, [notes]);
-    
+    }, [id, selectedNote.body, selectedNote.id, selectedNote.title]);
+
     const updateBody = async (val) => {
         await SetBody(val)
         update()
@@ -39,13 +38,14 @@ export default function EditorComponent({ selectedNote, selectedNoteIndex, notes
     //update every 1.5 sec
     const update = debounce(() => {
         noteUpdate(id,
-             {
+        {
             title: title,
             body: body
         })
     }, 1500)
 
-    return (
+    if(id){
+       return (
         <div className="editorContainer">
             <BorderColorIcon
                 className="editIcon">
@@ -63,7 +63,11 @@ export default function EditorComponent({ selectedNote, selectedNoteIndex, notes
                 value={body}
                 onChange={updateBody} />
         </div>
-    )
+    ) 
+    }else{
+        return null;
+    }
+    
 }
 
 

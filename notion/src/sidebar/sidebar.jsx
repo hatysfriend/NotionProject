@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import './styles.css';
 import List from '@material-ui/core/List';
@@ -7,8 +7,7 @@ import SidebarItemComponent from '../sidebaritem/sidebaritem';
 
 export default function SidebarComponent({notes, selectedNoteIndex, newNote, selectNote, deleteNote}) {
    
-    
-    
+
     if(notes){
         return(
             <div className="sidebarContainer">
