@@ -3,11 +3,12 @@ import ReactQuill from 'react-quill'
 import debounce from '../helper'
 import BorderColorIcon from '@material-ui/icons/BorderColor'
 // import { withStyles } from '@material-ui/core/styles'
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import "react-quill/dist/quill.snow.css";
-// import './styles.css'
+import './styles.css'
 
 
-export default function EditorComponent({ selectedNote, selectedNoteIndex, notes, noteUpdate }) {
+export default function EditorComponent({classNameForSize, selectedNote, selectedNoteIndex, notes, noteUpdate }) {
     const [body, SetBody] = useState('');
     const [title, Settitle] = useState('');
     const [id, SetId] = useState('');
@@ -46,10 +47,11 @@ export default function EditorComponent({ selectedNote, selectedNoteIndex, notes
 
     if(id){
        return (
-        <div className="editorContainer">
+        <div className={classNameForSize}>
             <BorderColorIcon
                 className="editIcon">
             </BorderColorIcon>
+
             {/* title */}
             <input
                 className="titleInput"
@@ -60,6 +62,7 @@ export default function EditorComponent({ selectedNote, selectedNoteIndex, notes
 
             {/* note body */}
             <ReactQuill
+                className='body'
                 value={body}
                 onChange={updateBody} />
         </div>
@@ -67,8 +70,16 @@ export default function EditorComponent({ selectedNote, selectedNoteIndex, notes
     }else{
         return null;
     }
-    
+}    
+
+export function TempEditor() {
+    return (
+        <div className='left50_temp'>
+            <div className='welcomePage'>WELCOME PAGE<InsertEmoticonIcon/></div>
+        </div>
+    )
 }
+
 
 
 

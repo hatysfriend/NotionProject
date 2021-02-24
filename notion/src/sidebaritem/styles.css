@@ -1,15 +1,54 @@
 .listItem {
   cursor: pointer;
-}
-.textSectionn {
-  max-width: 85%;
+  background-color:rgb(67, 72, 73);
+  height:50px;
 }
 
+
+/* open icon */
+.openArrow{
+  
+  position: absolute;
+  left:0px;
+  color: rgb(20, 20, 20);
+}
+
+/* file icon */
+.fileIcon{
+  position: absolute;
+  left:15px;
+  color: rgb(94, 105, 116);
+}
+
+.textSection{
+  position: absolute;
+  left:39px;
+}
+
+/* three dots */
+.threeDots{
+  position: absolute;
+  right: 45px;
+}.threeDots:hover{
+  color: rgb(129, 238, 5);
+}
+
+/* add icon and hover */
+.addIcon{
+  position: absolute;
+  right: 25px;
+}.addIcon:hover{
+  color: rgb(232, 236, 235);
+}
+
+/* delete icon and its hover */
 .deleteIcon {
   position: absolute;
   right: 5px;
-  top: calc(50% - 15px);
+}.deleteIcon:hover {
+  color: rgb(146, 42, 42);
 }
-.deleteIcon:hover {
-  color: red;
-}
+
+
+
+

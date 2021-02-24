@@ -1,13 +1,51 @@
-.editorContainer{
-    /* background-color: theme.palette.background.paper; */
-    height: calc(100% - 35px);
+
+/* when there is sidebar */
+.left320{
+  height:100%;
     position: absolute;
-    left: 0;
-    width: 300px;
+    left: 320px;
+    right:5px;
+    width: 100%;
     box-shadow: 0px 0px 2px black;
-    z-index:49;
+    z-index:50;
+    background-color: rgb(43, 42, 42);
+    box-sizing: border-box;
+    float: right;
 }
 
+/* when there is no sidebar */
+.left50{
+  height: 100% ;
+    position: absolute;
+    left: 50px;
+    right:5px;
+    width: 100%;
+    box-shadow: 0px 0px 2px black;
+    z-index:50;
+    background-color: rgb(43, 42, 42);
+    box-sizing: border-box;
+    float: right;
+}
+
+/* when you havent selected any note(default) */
+.left50_temp{
+  height:100% ;
+    position: absolute;
+    left: 50px;
+    width: 100%;
+    background-color: rgb(43, 42, 42);
+}
+/* welcome page text */
+.welcomePage{
+  position: absolute;
+  font-size: 50px;
+  top:50%;
+  left: 30%;
+  font-weight:bold;
+  color:rgba(14, 13, 13, 0.185);
+}.welcomePage:hover{
+  color:rgba(148, 206, 13, 0.185);
+}
 
   .titleInput{
     height: 50px;
@@ -15,8 +53,8 @@
     border: none;
     padding: 5px;
     font-size: 24px;
-    width: calc(100% - 300px);
-    background-color: #29487d;
+    /* width: calc(100% - 300px); */
+    background-color: #15181b;
     color: white;
     padding-left: 50px;
   }
@@ -29,8 +67,7 @@
     width: 10;
     height: 10;
   }
-  
-  .editorContainer {
-    height: 100%;
-    box-sizing: border-box;
+
+  .body{
+    color: rgb(214, 210, 210);
   }
