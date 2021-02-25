@@ -1,13 +1,18 @@
-import React from 'react'
+import React,{useState} from 'react'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import CloseIcon from '@material-ui/icons/Close';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import {  Button } from '@material-ui/core';
 import './styles.css'
+import SettingModal from '../Modals/settingModal'
 
-export default function SubSidebar({sidebarClose,closeSidebar}) {
-    return (
+export default function SubSidebar({sidebarClose,closeSidebar,closeSettingModal,settingModalClose}) {
+    
+  
+
+  return (
+      <>
       <div className='subSidebarContainer'>
         <Button className='openFile' onClick={sidebarClose}>
         {closeSidebar
@@ -16,8 +21,10 @@ export default function SubSidebar({sidebarClose,closeSidebar}) {
         </Button>
 
 
-        <Button className='setting'><SettingsIcon/></Button>
+        <Button className='setting' onClick={settingModalClose}><SettingsIcon/></Button>
         
       </div>
+      {closeSettingModal?<SettingModal open={closeSettingModal} settingModalClose={settingModalClose}/>:null}
+      </>
     )
   }

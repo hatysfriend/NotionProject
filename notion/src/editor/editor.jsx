@@ -6,6 +6,7 @@ import BorderColorIcon from '@material-ui/icons/BorderColor'
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import "react-quill/dist/quill.snow.css";
 import './styles.css'
+import CustomQuill from '../CustomQuill/CustomQuill'
 
 
 export default function EditorComponent({classNameForSize, selectedNote, selectedNoteIndex, notes, noteUpdate }) {
@@ -28,6 +29,7 @@ export default function EditorComponent({classNameForSize, selectedNote, selecte
     }, [id, selectedNote.body, selectedNote.id, selectedNote.title]);
 
     const updateBody = async (val) => {
+        console.log(val);
         await SetBody(val)
         update()
     }
@@ -43,7 +45,7 @@ export default function EditorComponent({classNameForSize, selectedNote, selecte
             title: title,
             body: body
         })
-    }, 1500)
+    })
 
     if(id){
        return (
@@ -61,10 +63,10 @@ export default function EditorComponent({classNameForSize, selectedNote, selecte
             </input>
 
             {/* note body */}
-            <ReactQuill
-                className='body'
-                value={body}
-                onChange={updateBody} />
+
+            <CustomQuill
+                body={body}
+                updateBody={updateBody} />
         </div>
     ) 
     }else{

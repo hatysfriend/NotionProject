@@ -1,0 +1,69 @@
+/* make everything black */
+.modalContainer{
+    position: fixed;
+    z-index:999;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.5);     
+}
+.MODAL_STYLES{
+    position: fixed;
+    top: 50%;
+    left:50%; 
+    background-color: rgba(186, 184, 187, 0.8);  
+    transform: translate(-50%, -50%);
+    width:60%;
+    height:60%;
+  
+    display: flex;
+    flex-direction:row;
+
+    justify-content: center; 
+    align-content:stretch ;
+
+    z-index:1000;
+  }
+
+  /* .modalTab{
+    padding: 4px;
+    background-color: blueviolet;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(12, 0, 0);
+    box-shadow: 5px 5px 8px black;
+} */
+.modalTopbar{
+    position: absolute;
+    left:0;
+    padding-top: 3px;
+    font-size:large;
+    font-weight: bolder;
+    
+}
+.CloseRoundedIcon{
+  padding-left: 15px;
+  padding-right: 30px;
+}
+ /* -----------css for portalList */
+ .portalList{
+    background-color:rgb(131, 127, 126,0.8);
+    position: absolute;
+    top:8%;
+    bottom: 30px;
+  left: 0%;
+  width:30%;
+  height:92%;
+  color:rgb(15, 15, 15);
+ }
+/* -----------css for portalContent */
+.portalContent{
+    background-color:rgb(9, 9, 109,0.8);
+    position: absolute;
+  left: 30%;
+  bottom: 30px;
+  top:8%;
+  width:70%;
+  height:92%;
+}
