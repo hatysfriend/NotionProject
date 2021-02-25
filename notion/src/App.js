@@ -26,11 +26,20 @@ function App() {
         //   return x.timestamp -y.timestamp;
         // })
         setNotes(notesFromDB);
+        const newestIndex = notes.indexOf(notes.sort(function(x,y){
+          return x.timestamp -y.timestamp
+        }))
+        selectNote(notes[newestIndex],newestIndex)
+       
+        //secelct node of newest one
+
+
       });
   }, []);
+
+  // useEffect(()=>{},[notes]);
   
 
-  
   //sidebar close/open
   const sidebarClose = () => {
     setCloseSidebar(!closeSidebar)
@@ -58,20 +67,26 @@ function App() {
       title: "[Untitled]",
       body: "",
     };
+
     const newFromDB = await firebase.firestore().collection("Notion").add({
       title: note.title,
       body: note.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    // this is fucking not working at all
-    await setNotes([...notes, note]);
-
+    const newArray = [...notes];
+    note.id = newFromDB.id
+    newArray.push(note);
+    setNotes(() => [...newArray]); 
+    // //------------------------
+    console.log(newFromDB.id);
     console.table(notes);
-    const newNoteIndex = notes.indexOf(
-      {id:newFromDB.id})
     
-    console.log(notes[newNoteIndex]?notes[newNoteIndex].title:newNoteIndex);
-    selectNote(notes[newNoteIndex],newNoteIndex)
+    
+
+    // const newNoteIndex = notes.indexOf(notes.filter((_note) => _note.id === newFromDB.id))
+    
+    // console.log(notes[newNoteIndex]?notes[newNoteIndex].title:newNoteIndex);
+    // selectNote(notes[newNoteIndex],newNoteIndex)
     
   };
   
@@ -80,6 +95,7 @@ function App() {
   const deleteNote = async (note) => {
     const noteIndex = notes.indexOf(note);
     await setNotes(notes.filter((_note) => _note !== note));
+    
     if (selectedNoteIndex === noteIndex) {
       selectNote(null , null)
     } else {
