@@ -10,7 +10,8 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { removeHTMLTags } from '../helper';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 
-export default function SidebarItemComponent({ _index, _note, selectedNoteIndex, selectNote, deleteNote}) {
+export default function SidebarItemComponent({ _index, _note, 
+    selectedNoteIndex, selectNote, deleteNote,isDarkMode}) {
     
     const substringa = (title) => {
         if(title.length>12){
@@ -23,7 +24,7 @@ export default function SidebarItemComponent({ _index, _note, selectedNoteIndex,
             <div key = {_index}>
                 
                 <ListItem
-                    className = "listItem"
+                    className = {"listItem"+isDarkMode}
                     selected={selectedNoteIndex===_index}
                     alignItems='flex-start'>
 

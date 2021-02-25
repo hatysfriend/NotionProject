@@ -5,10 +5,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import { ToggleButton } from '@material-ui/lab';
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
-export default function SettingModal({ open, settingModalClose }) {
+export default function SettingModal({ open, settingModalClose, isDarkModeFunc, isDarkMode }) {
 
     const [selectedModalList, setSelectedModalList] = useState({ setting: null, index: null });
 
@@ -30,8 +30,13 @@ export default function SettingModal({ open, settingModalClose }) {
                  Setting
              </div>
 
-                <PortalList setA={setA} />
-                <PortalContent selectedModalList={selectedModalList} />
+                <PortalList setA={setA}
+                    isDarkModeFunc={isDarkModeFunc}
+                    isDarkMode={isDarkMode}
+                />
+                <PortalContent
+                    selectedModalList={selectedModalList}
+                />
 
             </div>
         </div>,
@@ -40,10 +45,15 @@ export default function SettingModal({ open, settingModalClose }) {
 }
 
 
-export function PortalList({ setA }) {
-    const lists = [{ setting: 'Appearence', settingbody: <BODY1 /> },
-    { setting: 'setting2', settingbody: <BODY1 /> },
-    { setting: 'setting3', settingbody: <BODY1 /> }]
+export function PortalList({ setA, isDarkModeFunc, isDarkMode }) {
+    const lists = [{
+        setting: 'Appearence', settingbody:
+            <BODY1 isDarkModeFunc={isDarkModeFunc}
+                isDarkMode={isDarkMode}
+            />
+    },
+    { setting: 'setting2', settingbody: <BODY2 /> },
+    { setting: 'setting3', settingbody: <BODY3 /> }]
 
     return (
         <div className='portalList'>
@@ -73,15 +83,43 @@ export function PortalContent({ selectedModalList }) {
 
 //---------------------------BODY COMPOMENT
 
-export function BODY1() {
+export function BODY1({ isDarkModeFunc, isDarkMode }) {
+    const [a,b]=useState(isDarkMode)
+    const handleAlignment = (event, bool) => {
+        isDarkModeFunc(bool);
+        b(a);
+        console.log(bool);
+
+    };
     return (
         <div>
-            <ToggleButton
-                value="check"
-                
-            >
-                <CheckRoundedIcon />
-            </ToggleButton>
+            
+           <div><b>Appearence</b></div>
+            <ToggleButtonGroup
+                value={isDarkMode}
+                exclusive
+                onChange={handleAlignment}
+                aria-label="text alignment">
+
+                <ToggleButton value='true' aria-label="left aligned" className='darkBtn'>  DARK
+                    </ToggleButton>
+                <ToggleButton value="false" aria-label="centered" className='lightBtn'>Light
+                    </ToggleButton>
+            </ToggleButtonGroup>
+        </div>
+    )
+}
+export function BODY2() {
+    return (
+        <div>
+            title2
+        </div>
+    )
+}
+export function BODY3() {
+    return (
+        <div>
+            title3
         </div>
     )
 }

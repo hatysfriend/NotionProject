@@ -13,6 +13,7 @@ function App() {
   // switches
   const [closeSidebar, setCloseSidebar] = useState(true);
   const [closeSettingModal,setCloseSettingModal] = useState(false)
+  const [isDarkMode,setIsDarkMode] = useState(true);
 
   //get all the data from firebase and store in useState
   useEffect(() => {
@@ -37,6 +38,9 @@ function App() {
   const settingModalClose = () => {
     setCloseSettingModal(!closeSettingModal)
   };
+  const isDarkModeFunc = (bool)=>{
+    setIsDarkMode(bool)
+  }
 
 
   //selecting note
@@ -102,7 +106,11 @@ function App() {
       sidebarClose={sidebarClose}
         closeSidebar={closeSidebar}
         closeSettingModal={closeSettingModal}
-        settingModalClose={settingModalClose}/>
+        settingModalClose={settingModalClose}
+        isDarkMode={isDarkMode}
+        isDarkModeFunc={isDarkModeFunc}
+
+        />
 
       {closeSidebar ? (<SidebarComponent
         selectedNoteIndex={selectedNoteIndex}
@@ -111,6 +119,7 @@ function App() {
         deleteNote={deleteNote}
         newNote={newNote}
         sidebarClose={sidebarClose}
+        isDarkMode={isDarkMode}
       />) : null}
 
       {selectedNote ? (
@@ -121,6 +130,7 @@ function App() {
           notes={notes}
           noteUpdate={noteUpdate}
           classNameForSize='left320'
+          isDarkMode={isDarkMode}
         />) :
           // when sidebar is opened
           (<EditorComponent
@@ -129,8 +139,9 @@ function App() {
             notes={notes}
             noteUpdate={noteUpdate}
             classNameForSize='left50'
+            isDarkMode={isDarkMode}
           />)
-      ) : <TempEditor />}
+      ) : <TempEditor isDarkMode={isDarkMode}/>}
 
     </div>
   );

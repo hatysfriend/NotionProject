@@ -4,7 +4,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import './styles.css'
 
-export default function CustomQuill({body,updateBody}) {
+export default function CustomQuill({body,updateBody,isDarkMode}) {
 
   let modules = {
     toolbar: {

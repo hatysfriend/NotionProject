@@ -1,6 +1,8 @@
 
+/* =====================[dark mode]================== */
+
 /* when there is sidebar */
-.left320{
+.left320true{
   height:100%;
     position: absolute;
     left: 320px;
@@ -8,13 +10,13 @@
     width: 100%;
     box-shadow: 0px 0px 2px black;
     z-index:50;
-    background-color: rgb(43, 42, 42);
+    background-color: rgb(71, 68, 68);
     box-sizing: border-box;
     float: right;
 }
 
 /* when there is no sidebar */
-.left50{
+.left50true{
   height: 100% ;
     position: absolute;
     left: 50px;
@@ -22,19 +24,63 @@
     width: 100%;
     box-shadow: 0px 0px 2px black;
     z-index:50;
-    background-color: rgb(43, 42, 42);
+    background-color: rgb(71, 68, 68);
     box-sizing: border-box;
     float: right;
 }
 
 /* when you havent selected any note(default) */
-.left50_temp{
+.left50_temptrue{
   height:100% ;
     position: absolute;
     left: 50px;
     width: 100%;
-    background-color: rgb(43, 42, 42);
+    background-color: rgb(71, 68, 68);
 }
+
+
+/*==================== [white mode]========================*/
+
+/* when there is sidebar */
+.left320false{
+  height:100%;
+    position: absolute;
+    left: 320px;
+    right:5px;
+    width: 100%;
+    box-shadow: 0px 0px 2px black;
+    z-index:50;
+    background-color: rgb(245, 238, 238);
+    box-sizing: border-box;
+    float: right;
+}
+
+/* when there is no sidebar */
+.left50false{
+  height: 100% ;
+    position: absolute;
+    left: 50px;
+    right:5px;
+    width: 100%;
+    box-shadow: 0px 0px 2px black;
+    z-index:50;
+    background-color: rgb(245, 238, 238);
+    box-sizing: border-box;
+    float: right;
+}
+
+/* when you havent selected any note(default) */
+.left50_tempfalse{
+  height:100% ;
+    position: absolute;
+    left: 50px;
+    width: 100%;
+    background-color:rgb(245, 238, 238);
+}
+
+
+/* ===================[else ]===========================*/
+
 /* welcome page text */
 .welcomePage{
   position: absolute;
@@ -69,5 +115,5 @@
   }
 
   .body{
-    color: rgb(214, 210, 210);
+    color: rgb(185, 8, 8);
   }

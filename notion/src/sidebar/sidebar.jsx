@@ -5,12 +5,13 @@ import List from '@material-ui/core/List';
 import { Divider, Button } from '@material-ui/core';
 import SidebarItemComponent from '../sidebaritem/sidebaritem';
 
-export default function SidebarComponent({ notes, selectedNoteIndex, newNote, selectNote, deleteNote }) {
+export default function SidebarComponent({ notes, selectedNoteIndex,
+     newNote, selectNote, deleteNote,isDarkMode }) {
 
 
     if (notes) {
         return (
-            <div className="sidebarContainer">
+            <div className={"sidebarContainer"+isDarkMode}>
 
                 <Button
                     className="newNoteBtn"
@@ -29,7 +30,9 @@ export default function SidebarComponent({ notes, selectedNoteIndex, newNote, se
                                     _index={_index}
                                     selectedNoteIndex={selectedNoteIndex}
                                     selectNote={selectNote}
-                                    deleteNote={deleteNote}>
+                                    deleteNote={deleteNote}
+                                    isDarkMode={isDarkMode}
+                                    >
                                 </SidebarItemComponent>
                                 <Divider></Divider>
                             </div>

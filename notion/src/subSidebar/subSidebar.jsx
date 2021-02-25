@@ -7,13 +7,14 @@ import {  Button } from '@material-ui/core';
 import './styles.css'
 import SettingModal from '../Modals/settingModal'
 
-export default function SubSidebar({sidebarClose,closeSidebar,closeSettingModal,settingModalClose}) {
+export default function SubSidebar({sidebarClose,closeSidebar,closeSettingModal,
+  settingModalClose,isDarkModeFunc,isDarkMode}) {
     
   
 
   return (
       <>
-      <div className='subSidebarContainer'>
+      <div className={'isDark'+isDarkMode}>
         <Button className='openFile' onClick={sidebarClose}>
         {closeSidebar
         ?<CloseIcon/>
@@ -24,7 +25,13 @@ export default function SubSidebar({sidebarClose,closeSidebar,closeSettingModal,
         <Button className='setting' onClick={settingModalClose}><SettingsIcon/></Button>
         
       </div>
-      {closeSettingModal?<SettingModal open={closeSettingModal} settingModalClose={settingModalClose}/>:null}
+      {closeSettingModal
+      ?<SettingModal 
+      open={closeSettingModal}
+       settingModalClose={settingModalClose}
+       isDarkModeFunc={isDarkModeFunc}
+       isDarkMode={isDarkMode}
+       />:null}
       </>
     )
   }

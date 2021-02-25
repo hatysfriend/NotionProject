@@ -12,7 +12,7 @@
     position: fixed;
     top: 50%;
     left:50%; 
-    background-color: rgba(186, 184, 187, 0.8);  
+    background-color: rgba(186, 184, 187, 0.9);  
     transform: translate(-50%, -50%);
     width:60%;
     height:60%;
@@ -48,7 +48,7 @@
 }
  /* -----------css for portalList */
  .portalList{
-    background-color:rgb(131, 127, 126,0.8);
+    background-color:rgb(131, 127, 126);
     position: absolute;
     top:8%;
     bottom: 30px;
@@ -56,10 +56,11 @@
   width:30%;
   height:92%;
   color:rgb(15, 15, 15);
+  border-color: black;
  }
 /* -----------css for portalContent */
 .portalContent{
-    background-color:rgb(9, 9, 109,0.8);
+    background-color:rgb(149, 141, 156);
     position: absolute;
   left: 30%;
   bottom: 30px;

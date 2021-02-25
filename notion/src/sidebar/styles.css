@@ -1,13 +1,29 @@
-.sidebarContainer {
-  /* background-color: theme.palette.background.paper, */
+
+/* dark mode container */
+.sidebarContainertrue {
   height: 100%;
-  /* height:85%; */
   position: absolute;
   left: 50px;
   width: 270px;
   box-shadow: 0px 0px 2px black;
   z-index:50;
   background-color:rgb(90, 87, 86);
+  margin-top: 0px;
+  box-sizing: border-box;
+  float: left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* white mode container */
+.sidebarContainerfalse {
+  height: 100%;
+  position: absolute;
+  left: 50px;
+  width: 270px;
+  box-shadow: 0px 0px 2px black;
+  z-index:50;
+  background-color:rgb(240, 234, 232);
   margin-top: 0px;
   box-sizing: border-box;
   float: left;

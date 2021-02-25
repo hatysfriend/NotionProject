@@ -9,7 +9,8 @@ import './styles.css'
 import CustomQuill from '../CustomQuill/CustomQuill'
 
 
-export default function EditorComponent({classNameForSize, selectedNote, selectedNoteIndex, notes, noteUpdate }) {
+export default function EditorComponent({classNameForSize, selectedNote,
+     selectedNoteIndex, notes, noteUpdate,isDarkMode }) {
     const [body, SetBody] = useState('');
     const [title, Settitle] = useState('');
     const [id, SetId] = useState('');
@@ -49,7 +50,7 @@ export default function EditorComponent({classNameForSize, selectedNote, selecte
 
     if(id){
        return (
-        <div className={classNameForSize}>
+        <div className={classNameForSize+isDarkMode}>
             <BorderColorIcon
                 className="editIcon">
             </BorderColorIcon>
@@ -66,7 +67,8 @@ export default function EditorComponent({classNameForSize, selectedNote, selecte
 
             <CustomQuill
                 body={body}
-                updateBody={updateBody} />
+                updateBody={updateBody}
+                isDarkMode={isDarkMode} />
         </div>
     ) 
     }else{
@@ -74,9 +76,9 @@ export default function EditorComponent({classNameForSize, selectedNote, selecte
     }
 }    
 
-export function TempEditor() {
+export function TempEditor({isDarkMode}) {
     return (
-        <div className='left50_temp'>
+        <div className={'left50_temp'+isDarkMode}>
             <div className='welcomePage'>WELCOME PAGE<InsertEmoticonIcon/></div>
         </div>
     )

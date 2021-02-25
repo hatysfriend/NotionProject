@@ -1,8 +1,18 @@
-.listItem {
+/* dark mode */
+.listItemtrue {
   cursor: pointer;
   background-color:rgb(67, 72, 73);
   height:50px;
 }
+/* white mode */
+.listItemfalse {
+  cursor: pointer;
+  background-color:rgb(189, 193, 194);
+  height:50px;
+}
+
+
+
 
 
 /* open icon */

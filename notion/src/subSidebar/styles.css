@@ -1,13 +1,27 @@
-.subSidebarContainer{
-    height:100%;
-    position: absolute;
-    left: 0;
-    width: 50px;
-    z-index:50;
-    background-color:rgb(59, 56, 55);
-    box-sizing: border-box;
-    align-items: center;
-  }
+
+
+  /* darkmode subSidebarContainer*/
+.isDarktrue{
+   height:100%;
+   position: absolute;
+   left: 0;
+   width: 50px;
+   z-index:50;
+   background-color:rgb(66, 63, 60);
+   box-sizing: border-box;
+   align-items: center;
+}
+/* white mode subSidebarContainer*/
+.isDarkfalse{
+   height:100%;
+   position: absolute;
+   left: 0;
+   width: 50px;
+   z-index:50;
+   background-color:rgb(202, 194, 192);
+   box-sizing: border-box;
+   align-items: center;
+}
   
 .openFile{
     width: 100%;
