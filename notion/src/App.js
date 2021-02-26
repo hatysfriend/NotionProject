@@ -13,7 +13,7 @@ function App() {
   // switches
   const [closeSidebar, setCloseSidebar] = useState(true);
   const [closeSettingModal,setCloseSettingModal] = useState(false)
-  const [isDarkMode,setIsDarkMode] = useState(true);
+  const [isDarkMode,setIsDarkMode] = useState('');
 
   //get all the data from firebase and store in useState
   useEffect(() => {
@@ -28,6 +28,19 @@ function App() {
         });
         setNotes(notesFromDB);
       });
+
+      firebase
+      .firestore()
+      .collection("Color")
+      .onSnapshot((serverUpdate) => {
+        const colorFromDB = serverUpdate.docs.map((_doc) => {
+          const data = _doc.data();
+          data["id"] = _doc.id;
+          return data;
+        });
+        setIsDarkMode(colorFromDB[0].isDark);
+        console.log(colorFromDB[0].id)
+      });
   }, []);
 
 
@@ -39,6 +52,9 @@ function App() {
     setCloseSettingModal(!closeSettingModal)
   };
   const isDarkModeFunc = (bool)=>{
+    firebase.firestore().collection("Color").doc('j1ZT24ZiyBohd31wpoNI').update({
+      isDark: bool
+    });
     setIsDarkMode(bool)
   }
 
