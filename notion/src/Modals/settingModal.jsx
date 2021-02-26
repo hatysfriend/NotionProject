@@ -84,13 +84,16 @@ export function PortalContent({ selectedModalList }) {
 //---------------------------BODY COMPOMENT
 
 export function BODY1({ isDarkModeFunc, isDarkMode }) {
-    const [a,b]=useState(isDarkMode)
-    const handleAlignment = (event, bool) => {
-        isDarkModeFunc(bool);
-        b(a);
-        console.log(bool);
 
+    const handleAlignment = (event, bool) => {
+        if(bool!==null){
+           isDarkModeFunc(bool);
+        }
+        else{
+            isDarkModeFunc(isDarkMode);
+        }
     };
+    
     return (
         <div>
             

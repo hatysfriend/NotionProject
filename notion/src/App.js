@@ -12,8 +12,8 @@ function App() {
   const [notes, setNotes] = useState(null);
   // switches
   const [closeSidebar, setCloseSidebar] = useState(true);
-  const [closeSettingModal,setCloseSettingModal] = useState(false)
-  const [isDarkMode,setIsDarkMode] = useState('');
+  const [closeSettingModal, setCloseSettingModal] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   //get all the data from firebase and store in useState
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
         setNotes(notesFromDB);
       });
 
-      firebase
+    firebase
       .firestore()
       .collection("Color")
       .onSnapshot((serverUpdate) => {
@@ -39,7 +39,7 @@ function App() {
           return data;
         });
         setIsDarkMode(colorFromDB[0].isDark);
-        console.log(colorFromDB[0].id)
+        console.log('this is the problem?'+colorFromDB[0].isDark)
       });
   }, []);
 
@@ -48,10 +48,12 @@ function App() {
   const sidebarClose = () => {
     setCloseSidebar(!closeSidebar)
   };
+
   const settingModalClose = () => {
     setCloseSettingModal(!closeSettingModal)
   };
-  const isDarkModeFunc = (bool)=>{
+
+  const isDarkModeFunc = (bool) => {
     firebase.firestore().collection("Color").doc('j1ZT24ZiyBohd31wpoNI').update({
       isDark: bool
     });
@@ -106,7 +108,7 @@ function App() {
         index = notesFromDB.findIndex(item => item.id === newFromDB.id)
         console.log(index)
       })
-      selectNote(note,index);
+    selectNote(note, index);
   };
 
 
@@ -118,16 +120,21 @@ function App() {
 
   return (
     <div className="App">
-      <SubSidebar 
-      sidebarClose={sidebarClose}
+      {isDarkMode
+      ?(<></>)
+      
+      :null}
+      {/* --subside bar --*/}
+      <SubSidebar
+        sidebarClose={sidebarClose}
         closeSidebar={closeSidebar}
         closeSettingModal={closeSettingModal}
         settingModalClose={settingModalClose}
         isDarkMode={isDarkMode}
         isDarkModeFunc={isDarkModeFunc}
+      />
 
-        />
-
+      {/* --sidebar close/open-- */}
       {closeSidebar ? (<SidebarComponent
         selectedNoteIndex={selectedNoteIndex}
         notes={notes}
@@ -138,26 +145,26 @@ function App() {
         isDarkMode={isDarkMode}
       />) : null}
 
-      {selectedNote ? (
-        // when sidebar is closed
-        closeSidebar ? (<EditorComponent
-          selectedNote={selectedNote}
-          selectedNoteIndex={selectedNoteIndex}
-          notes={notes}
-          noteUpdate={noteUpdate}
-          classNameForSize='left320'
-          isDarkMode={isDarkMode}
-        />) :
-          // when sidebar is opened
-          (<EditorComponent
+      {/* EditorComponent open/close Version or default page */}
+      {selectedNote
+        ? (closeSidebar
+          ? (<EditorComponent
+            selectedNote={selectedNote}
+            selectedNoteIndex={selectedNoteIndex}
+            notes={notes}
+            noteUpdate={noteUpdate}
+            classNameForSize='left320'
+            isDarkMode={isDarkMode}
+          />)
+          : (<EditorComponent
             selectedNote={selectedNote}
             selectedNoteIndex={selectedNoteIndex}
             notes={notes}
             noteUpdate={noteUpdate}
             classNameForSize='left50'
             isDarkMode={isDarkMode}
-          />)
-      ) : <TempEditor isDarkMode={isDarkMode}/>}
+          />))
+        : <TempEditor isDarkMode={isDarkMode} />}
 
     </div>
   );
