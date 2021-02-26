@@ -15,7 +15,7 @@ export default function SubSidebar({sidebarClose,closeSidebar,closeSettingModal,
   return (
       <>
       <div className={'isDark'+isDarkMode}>
-        <div>{'isDark'+isDarkMode}</div>
+        {/* <div>{'isDark'+isDarkMode}</div> */}
         <Button className='openFile' onClick={sidebarClose}>
         {closeSidebar
         ?<CloseIcon/>

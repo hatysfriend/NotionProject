@@ -7,6 +7,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import "react-quill/dist/quill.snow.css";
 import './styles.css'
 import CustomQuill from '../CustomQuill/CustomQuill'
+import {removeHTMLTags} from '../helper'
 
 
 export default function EditorComponent({classNameForSize, selectedNote,
@@ -31,22 +32,36 @@ export default function EditorComponent({classNameForSize, selectedNote,
 
     const updateBody = async (val) => {
         console.log(val);
-        await SetBody(val)
-        update()
+        SetBody(val)
+        console.log(removeHTMLTags(body)+' '+removeHTMLTags(val));
+        update('',val)
     }
 
     const updateTitle = async (txt) => {
         await Settitle(txt)
-        update()
+        update(txt,'')
     }
     //update every 1.5 sec
-    const update = debounce(() => {
-        noteUpdate(id,
-        {
-            title: title,
-            body: body
+    const update = debounce((newtitle,newbody) => {
+        if(!newtitle){
+            noteUpdate(id,
+                {
+                    title: title,
+                    body: newbody
+                }) 
+            } 
+            else{
+                noteUpdate(id,
+                    {
+                        title: newtitle,
+                        body: body
+                    })
+            }
         })
-    })
+
+       
+        
+   
 
     if(id){
        return (

@@ -39,7 +39,6 @@ function App() {
           return data;
         });
         setIsDarkMode(colorFromDB[0].isDark);
-        console.log('this is the problem?'+colorFromDB[0].isDark)
       });
   }, []);
 
@@ -69,12 +68,15 @@ function App() {
 
   //updating note when editor updated
   const noteUpdate = (id, noteObj) => {
+
+    console.table(noteObj)
     firebase.firestore().collection("Notion").doc(id).update({
       title: noteObj.title,
       body: noteObj.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    setCloseSidebar(closeSidebar);
+    // setCloseSidebar(closeSidebar);
+    selectNote(selectedNote, selectedNoteIndex);
   };
 
   //creating a new note
