@@ -67,8 +67,18 @@ export default function CustomQuill({ body, updateBody, isDarkMode }) {
           <option value="medium">medium</option>
           <option value="large">large</option>
         </select>
+
         <select className="ql-color" />
 
+        <button className="ql-bold"></button>
+
+        <button className="ql-italic"></button>
+
+        <button className="ql-underline"></button>
+        
+        <button className="ql-strike"></button>
+
+        
       </div>
       <ReactQuill
         value={body}

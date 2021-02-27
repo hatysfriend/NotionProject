@@ -2,7 +2,7 @@ import "./App.css";
 import SidebarComponent from "./sidebar/sidebar.jsx";
 import EditorComponent, { TempEditor } from "./editor/editor.jsx";
 import SubSidebar from './subSidebar/subSidebar'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { firebase } from "@firebase/app";
 
 function App() {
@@ -14,6 +14,9 @@ function App() {
   const [closeSidebar, setCloseSidebar] = useState(true);
   const [closeSettingModal, setCloseSettingModal] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const notesRef = useRef();
+  let a = null;
 
   //get all the data from firebase and store in useState
   useEffect(() => {
@@ -27,7 +30,11 @@ function App() {
           return data;
         });
         setNotes(notesFromDB);
+        a = notesFromDB;
+        // notesRef.current=notesFromDB;
       });
+
+      
 
     firebase
       .firestore()
@@ -47,11 +54,13 @@ function App() {
   const sidebarClose = () => {
     setCloseSidebar(!closeSidebar)
   };
-
+ 
+  //setting modal close/open
   const settingModalClose = () => {
     setCloseSettingModal(!closeSettingModal)
   };
-
+ 
+  //dark mode on/off
   const isDarkModeFunc = (bool) => {
     firebase.firestore().collection("Color").doc('j1ZT24ZiyBohd31wpoNI').update({
       isDark: bool
@@ -62,21 +71,24 @@ function App() {
 
   //selecting note
   const selectNote = (note, index) => {
-    setSelectedNoteIndex(index); //     if this works
-    setSelectedNote(note);            //this shouldnt work
+    setSelectedNoteIndex(index);    
+    setSelectedNote(note);           
   };
 
   //updating note when editor updated
   const noteUpdate = (id, noteObj) => {
-
-    console.table(noteObj)
     firebase.firestore().collection("Notion").doc(id).update({
       title: noteObj.title,
       body: noteObj.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    // setCloseSidebar(closeSidebar);
-    selectNote(selectedNote, selectedNoteIndex);
+      selectNote(noteObj, selectedNoteIndex);
+  };
+
+  //deleting a note 
+  const deleteNote = async (note) => {
+    firebase.firestore().collection("Notion").doc(note.id).delete();
+    selectNote(null, null);
   };
 
   //creating a new note
@@ -85,40 +97,43 @@ function App() {
       title: "[Untitled]",
       body: "",
     };
-
+    
+    //add a new note to the DB
     const newFromDB = await firebase.firestore().collection("Notion").add({
       title: note.title,
       body: note.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
+    
+    //set a new note to the useState
     const newArray = [...notes];
-    note.id = newFromDB.id
+    note.id = newFromDB.id //assign new ID from DB
     newArray.push(note);
+
     setNotes(newArray);
-    console.log(newFromDB);
-    let index = null;
-    firebase
-      .firestore()
-      .collection("Notion")
-      .onSnapshot((serverUpdate) => {
-        const notesFromDB = serverUpdate.docs.map((_doc) => {
-          const data = _doc.data();
-          data["id"] = _doc.id;
-          return data;
-        });
-        console.table(notesFromDB)
-        index = notesFromDB.findIndex(item => item.id === newFromDB.id)
-        console.log(index)
-      })
+  
+    console.log(a);
+    // console.log(notesRef.current);
+    let index = a.findIndex(item => item.id === newFromDB.id)
+    
+    //get index of new note
+    // let index = null;
+    // firebase
+    //   .firestore()
+    //   .collection("Notion")
+    //   .onSnapshot((serverUpdate) => {
+    //     const notesFromDB = serverUpdate.docs.map((_doc) => {
+    //       const data = _doc.data();
+    //       data["id"] = _doc.id;
+    //       return data;
+    //     });
+    //     index = notesFromDB.findIndex(item => item.id === newFromDB.id)
+    //   })
     selectNote(note, index);
   };
 
 
-  //deleting a note 
-  const deleteNote = async (note) => {
-    firebase.firestore().collection("Notion").doc(note.id).delete();
-    selectNote(null, null);
-  };
+  
 
   return (
     <div className="App">

@@ -22,39 +22,45 @@ export default function EditorComponent({classNameForSize, selectedNote,
         SetId(selectedNote.id);
     }, [selectedNote.body, selectedNote.id, selectedNote.title]);
 
-    useEffect(() => {
-        if (selectedNote.id !== id) {
-            SetBody(selectedNote.body);
-            Settitle(selectedNote.title);
-            SetId(selectedNote.id);
-        }
-    }, [id, selectedNote.body, selectedNote.id, selectedNote.title]);
+    // useEffect(() => {
+    //     if (selectedNote.id !== id) {
+    //         SetBody(selectedNote.body);
+    //         Settitle(selectedNote.title);
+    //         SetId(selectedNote.id);
+    //     }
+    // }, [id, selectedNote.body, selectedNote.id, selectedNote.title]);
 
     const updateBody = async (val) => {
         console.log(val);
-        SetBody(val)
-        console.log(removeHTMLTags(body)+' '+removeHTMLTags(val));
+        SetBody(val);
         update('',val)
     }
 
     const updateTitle = async (txt) => {
-        await Settitle(txt)
+        Settitle(txt);
         update(txt,'')
     }
     //update every 1.5 sec
     const update = debounce((newtitle,newbody) => {
-        if(!newtitle){
-            noteUpdate(id,
+
+        console.log('CURRENT STATE VALUES: title:'+title+' ID: '+id+' body: '+body);
+        console.log('saved: title: '+selectedNote.title+' ID: '+selectedNote.id+' index: '+selectedNoteIndex)
+
+        if(!newtitle&&newbody){ //updating body
+            noteUpdate(selectedNote.id,
                 {
-                    title: title,
+                    id:selectedNote.id,
+                    title: selectedNote.title,
                     body: newbody
                 }) 
             } 
-            else{
-                noteUpdate(id,
+            if(newtitle&&!newbody)
+            { //updating title
+                noteUpdate(selectedNote.id,
                     {
+                        id:selectedNote.id,
                         title: newtitle,
-                        body: body
+                        body: selectedNote.body
                     })
             }
         })
