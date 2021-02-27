@@ -18,7 +18,7 @@ function App() {
   const notesRef = useRef();
   let a = null;
 
-  //get all the data from firebase and store in useState
+  //get data from DB
   useEffect(() => {
     firebase
       .firestore()
@@ -30,13 +30,11 @@ function App() {
           return data;
         });
         setNotes(notesFromDB);
-        a = notesFromDB;
-        // notesRef.current=notesFromDB;
+        notesRef.current=notesFromDB;
       });
-
       
-
-    firebase
+      // get color from DB
+      firebase
       .firestore()
       .collection("Color")
       .onSnapshot((serverUpdate) => {
@@ -67,8 +65,7 @@ function App() {
     });
     setIsDarkMode(bool)
   }
-
-
+  
   //selecting note
   const selectNote = (note, index) => {
     setSelectedNoteIndex(index);    
@@ -109,26 +106,11 @@ function App() {
     const newArray = [...notes];
     note.id = newFromDB.id //assign new ID from DB
     newArray.push(note);
-
     setNotes(newArray);
   
-    console.log(a);
-    // console.log(notesRef.current);
-    let index = a.findIndex(item => item.id === newFromDB.id)
-    
     //get index of new note
-    // let index = null;
-    // firebase
-    //   .firestore()
-    //   .collection("Notion")
-    //   .onSnapshot((serverUpdate) => {
-    //     const notesFromDB = serverUpdate.docs.map((_doc) => {
-    //       const data = _doc.data();
-    //       data["id"] = _doc.id;
-    //       return data;
-    //     });
-    //     index = notesFromDB.findIndex(item => item.id === newFromDB.id)
-    //   })
+    let index = notesRef.current.findIndex(item => item.id === newFromDB.id)
+
     selectNote(note, index);
   };
 
@@ -137,10 +119,7 @@ function App() {
 
   return (
     <div className="App">
-      {isDarkMode
-      ?(<></>)
-      
-      :null}
+
       {/* --subside bar --*/}
       <SubSidebar
         sidebarClose={sidebarClose}

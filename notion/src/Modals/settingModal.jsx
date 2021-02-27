@@ -6,7 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
-import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 
 export default function SettingModal({ open, settingModalClose, isDarkModeFunc, isDarkMode }) {
 
@@ -14,10 +13,8 @@ export default function SettingModal({ open, settingModalClose, isDarkModeFunc, 
 
     if (!open) return null;
 
-
     const setA = (selectedONe) => {
         setSelectedModalList(selectedONe);
-        // console.map(selectedModalList);
     }
 
     return ReactDom.createPortal(
@@ -37,7 +34,6 @@ export default function SettingModal({ open, settingModalClose, isDarkModeFunc, 
                 <PortalContent
                     selectedModalList={selectedModalList}
                 />
-
             </div>
         </div>,
         document.getElementById('portal')
@@ -46,14 +42,14 @@ export default function SettingModal({ open, settingModalClose, isDarkModeFunc, 
 
 
 export function PortalList({ setA, isDarkModeFunc, isDarkMode }) {
-    const lists = [{
-        setting: 'Appearence', settingbody:
-            <BODY1 isDarkModeFunc={isDarkModeFunc}
-                isDarkMode={isDarkMode}
-            />
-    },
-    { setting: 'setting2', settingbody: <BODY2 /> },
-    { setting: 'setting3', settingbody: <BODY3 /> }]
+    const lists = [
+        {
+            setting: 'Appearence', settingbody:
+                <BODY1 isDarkModeFunc={isDarkModeFunc}
+                    isDarkMode={isDarkMode} />
+        },
+        { setting: 'setting2', settingbody: <BODY2 /> },
+        { setting: 'setting3', settingbody: <BODY3 /> }]
 
     return (
         <div className='portalList'>
@@ -64,12 +60,11 @@ export function PortalList({ setA, isDarkModeFunc, isDarkMode }) {
                         <ListItemText>{list.setting}</ListItemText>
                     </ListItem>
                 )
-
             })}</List>
-
         </div>
     )
 }
+
 export function PortalContent({ selectedModalList }) {
     if (selectedModalList.setting) {
         return (
@@ -78,26 +73,22 @@ export function PortalContent({ selectedModalList }) {
             </div>
         )
     } else return null;
-
 }
+
+
 
 //---------------------------BODY COMPOMENT
 
 export function BODY1({ isDarkModeFunc, isDarkMode }) {
 
     const handleAlignment = (event, bool) => {
-        if(bool!==null){
-           isDarkModeFunc(bool);
-        }
-        else{
-            isDarkModeFunc(isDarkMode);
-        }
+        if (bool !== null) { isDarkModeFunc(bool); }
+        else { isDarkModeFunc(isDarkMode); }
     };
-    
+
     return (
         <div>
-            
-           <div><b>Appearence</b></div>
+            <div><b>Appearence</b></div>
             <ToggleButtonGroup
                 value={isDarkMode}
                 exclusive
@@ -112,19 +103,19 @@ export function BODY1({ isDarkModeFunc, isDarkMode }) {
         </div>
     )
 }
+
 export function BODY2() {
     return (
-        <div>
-            title2
-        </div>
+        <div>title2</div>
     )
 }
+
 export function BODY3() {
     return (
-        <div>
-            title3
-        </div>
+        <div> title3</div>
     )
 }
+
+
 
 

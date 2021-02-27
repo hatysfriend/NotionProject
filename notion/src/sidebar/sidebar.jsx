@@ -1,17 +1,15 @@
 import React from 'react';
 import './styles.css';
-import AddIcon from '@material-ui/icons/Add';
 import List from '@material-ui/core/List';
 import { Divider, Button } from '@material-ui/core';
 import SidebarItemComponent from '../sidebaritem/sidebaritem';
 
 export default function SidebarComponent({ notes, selectedNoteIndex,
-     newNote, selectNote, deleteNote,isDarkMode }) {
-
+    newNote, selectNote, deleteNote, isDarkMode }) {
 
     if (notes) {
         return (
-            <div className={"sidebarContainer"+isDarkMode}>
+            <div className={"sidebarContainer" + isDarkMode}>
 
                 <Button
                     className="newNoteBtn"
@@ -32,16 +30,14 @@ export default function SidebarComponent({ notes, selectedNoteIndex,
                                     selectNote={selectNote}
                                     deleteNote={deleteNote}
                                     isDarkMode={isDarkMode}
-                                    >
+                                >
                                 </SidebarItemComponent>
                                 <Divider></Divider>
                             </div>
                         )
-                    })
-                    }
+                    })}
                 </List>
             </div>
         )
-    }
-    else return null;
+    } else return null;
 }
