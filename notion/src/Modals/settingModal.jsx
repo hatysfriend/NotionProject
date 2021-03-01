@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDom from 'react-dom';
-import './styles.css'
+import './settingModal.css'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
