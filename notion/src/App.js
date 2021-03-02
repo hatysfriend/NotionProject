@@ -69,11 +69,12 @@ function App() {
   //selecting note
   const selectNote = (note, index) => {
     setSelectedNoteIndex(index);    
-    setSelectedNote(note);           
+    setSelectedNote(note);          
   };
 
   //updating note when editor updated
   const noteUpdate = (id, noteObj) => {
+    console.table(noteObj.body);
     firebase.firestore().collection("Notion").doc(id).update({
       title: noteObj.title,
       body: noteObj.body,
@@ -90,9 +91,10 @@ function App() {
 
   //creating a new note
   const newNote = async () => {
+
     const note = {
       title: "[Untitled]",
-      body: "",
+      body: ['<p>1</p>']
     };
     
     //add a new note to the DB

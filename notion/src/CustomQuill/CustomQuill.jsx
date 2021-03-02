@@ -3,82 +3,46 @@ import './styles.css'
 import ReactQuill, { Quill } from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import './styles.css'
-import ToolbarModal,{getModuls} from '../Modals/ToolbarModal';
+import ToolbarModal,{modules, formats} from '../Modals/ToolbarModal';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
-export default function CustomQuill({ body, updateBody, isDarkMode }) {
+import 'react-quill/dist/quill.bubble.css'
+
+export default function CustomQuill({ body, updateBody, isDarkMode,index }) {
 
   const [settingsModalBool, setSettingsModalBool] = useState(false);
   const toggleToolbar = () => {
     setSettingsModalBool(!settingsModalBool);
   }
-  let modules = getModuls;
 
- 
-  // let modules = {
-  //   toolbar: {
-  //     container: "#a",
-  //   }
-  // }
-  // // };
-
-  let formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "color"
-  ];
-
-  // // Add fonts to whitelist and register them
-  const Font = Quill.import("formats/font");
-  Font.whitelist = [
-    "arial",
-    "comic-sans",
-    "courier-new",
-    "georgia",
-    "helvetica",
-    "lucida"
-  ];
-  Quill.register(Font, true);
-
-  // // Add sizes to whitelist and register them
-  const Size = Quill.import("formats/size");
-  Size.whitelist = ["extra-small", "small", "medium", "large"];
-  Quill.register(Size, true);
-
-  
+  const update = (val) =>{
+    console.log(val +' '+index);
+    updateBody(val, index);
+  }
 
   return (
     
     <div className="CustomQuill">
 
-      <button className="" onClick={toggleToolbar}><DragIndicatorIcon/></button>
-      {settingsModalBool && <ToolbarModal />}
+      {/* <button className="settingsButton" onClick={toggleToolbar}><DragIndicatorIcon/></button> */}
 
-      {/* <CustomToolbar /> */}
       
       
-
-       {modules!==null?
-       <ReactQuill
-       value= {body}
-       onChange={updateBody}
-       //   placeholder={this.props.placeholder}
-       modules={modules}
-       formats={formats}>
-
-     </ReactQuill>
-       :null}
+      
+       
+       <ToolbarModal/>
+         <ReactQuill
+        value={body}
+        onChange={update}
+        modules={modules}
+        formats={formats}
+        theme="bubble"
+        >
+      </ReactQuill>
+        
+       
+       
+      
       
     </div>
 
