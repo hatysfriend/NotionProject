@@ -14,7 +14,7 @@ export default function EditorComponent({
   noteUpdate,
   isDarkMode,
 }) {
-  const [body, SetBody] = useState(selectedNote.body);
+  const [body, SetBody] = useState("");
   const [title, Settitle] = useState("");
   const [id, SetId] = useState("");
 
@@ -28,7 +28,26 @@ export default function EditorComponent({
       const newBlock = '';
       const arr = [...body];
       arr.push(newBlock);
-      SetBody(arr);
+      // SetBody(arr);
+      noteUpdate(selectedNote.id, {
+        id: selectedNote.id,
+        title: selectedNote.title,
+        body: arr,
+      });
+  }
+
+  const deleteBlock = (index)=>{
+    let arr = [...body];
+    console.log(arr)
+    console.log(index)
+    arr.splice(index,1);
+    console.log(arr)
+
+    // splice with return  => add
+    // splice with no return => remove
+    
+      // SetBody(arr);
+
       noteUpdate(selectedNote.id, {
         id: selectedNote.id,
         title: selectedNote.title,
@@ -39,12 +58,12 @@ export default function EditorComponent({
   const updateBody = (val, index) => { // [123,345,678]
     const arr = [...body]
     arr[index] = val;
-    SetBody(arr);
+    // SetBody(arr);
     update("", val, index);
   };
 
   const updateTitle = (txt) => {
-    Settitle(txt);
+    // Settitle(txt);
     update(txt, "",'');
   };
 
@@ -89,20 +108,20 @@ export default function EditorComponent({
 
         {/* note body */}
         
-        {body.map((block, index) => {
-            console.log(block);
+        {selectedNote.body.map((block, index) => {
           return (
             <CustomQuill
-              key={index}  
+            key = {index} 
               index = {index}
               body={block}
               updateBody={updateBody}
+              deleteBlock={deleteBlock}
               isDarkMode={isDarkMode}
             />
           );
         })} 
          
-        <div onClick={addBlock} placeholder="/New block goes here...">ADD NEW BLOCK</div> 
+        <div onClick={addBlock}>NEW BLOCK - CLICK HERE</div> 
         {/* calse 1 : if body has no block => wanna make this body[0] */}
         {/* case 2: else body[body.length]   //[a,b ,c] body[3] */}
         {/* <CustomQuill

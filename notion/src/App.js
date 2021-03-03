@@ -74,14 +74,27 @@ function App() {
 
   //updating note when editor updated
   const noteUpdate = (id, noteObj) => {
-    console.table(noteObj.body);
-    firebase.firestore().collection("Notion").doc(id).update({
+    const objTemp = {
       title: noteObj.title,
       body: noteObj.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    }
+
+
+    firebase.firestore().collection("Notion").doc(id).update(objTemp);
+    /////////////test
+    //[{title,body, id},{title,body, id}]
+      let currentNotes = [...notes];
+      let index = currentNotes.indexOf(currentNotes.filter((item)=>item.id===id))
+      currentNotes[index]=objTemp;
+      console.log(currentNotes[index].body)
+      setNotes(currentNotes);
+      ////////////////
       selectNote(noteObj, selectedNoteIndex);
   };
+   
+  
+
 
   //deleting a note 
   const deleteNote = async (note) => {
