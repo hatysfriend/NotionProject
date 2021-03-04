@@ -79,15 +79,20 @@ function App() {
       body: noteObj.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }
+    
+    console.table(noteObj.body)//1   what you doing to send to DB
 
 
     firebase.firestore().collection("Notion").doc(id).update(objTemp);
     /////////////test
     //[{title,body, id},{title,body, id}]
       let currentNotes = [...notes];
-      let index = currentNotes.indexOf(currentNotes.filter((item)=>item.id===id))
+      
+      let index = currentNotes.indexOf(currentNotes.filter((item)=>item.id===id)[0]);
       currentNotes[index]=objTemp;
-      console.log(currentNotes[index].body)
+
+      console.table(currentNotes[index].body)//2 = >undefined
+
       setNotes(currentNotes);
       ////////////////
       selectNote(noteObj, selectedNoteIndex);

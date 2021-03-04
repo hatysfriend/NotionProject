@@ -5,6 +5,9 @@ import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import "react-quill/dist/quill.snow.css";
 import "./styles.css";
 import CustomQuill from "../CustomQuill/CustomQuill";
+import ReactQuill from "react-quill";
+import CreateIcon from '@material-ui/icons/Create';
+import AddIcon from '@material-ui/icons/Add';
 
 export default function EditorComponent({
   classNameForSize,
@@ -26,9 +29,9 @@ export default function EditorComponent({
 
   const addBlock = () =>{
       const newBlock = '';
-      const arr = [...body];
+      const arr = [...selectedNote.body];
       arr.push(newBlock);
-      // SetBody(arr);
+      SetBody(arr);
       noteUpdate(selectedNote.id, {
         id: selectedNote.id,
         title: selectedNote.title,
@@ -37,7 +40,7 @@ export default function EditorComponent({
   }
 
   const deleteBlock = (index)=>{
-    let arr = [...body];
+    let arr = [...selectedNote.body];
     console.log(arr)
     console.log(index)
     arr.splice(index,1);
@@ -46,8 +49,8 @@ export default function EditorComponent({
     // splice with return  => add
     // splice with no return => remove
     
-      // SetBody(arr);
-
+      SetBody(arr);
+      
       noteUpdate(selectedNote.id, {
         id: selectedNote.id,
         title: selectedNote.title,
@@ -55,30 +58,37 @@ export default function EditorComponent({
       });
   }
 
+  // const updateBody = async (val) => {
+    //     SetBody(val);
+    //     update('', val)
+    // }
+    
   const updateBody = (val, index) => { // [123,345,678]
-    const arr = [...body]
+    const arr = [...selectedNote.body]
     arr[index] = val;
-    // SetBody(arr);
+    SetBody(arr);
     update("", val, index);
   };
 
   const updateTitle = (txt) => {
-    // Settitle(txt);
+    Settitle(txt);
     update(txt, "",'');
   };
 
   //update
   const update = debounce((newtitle, newbody, index) => {
-    const nbody = [...body]
+    const nbody = [...selectedNote.body]
     nbody[index]= newbody
     
-    if (!newtitle && newbody) {
+    if(!newtitle && newbody) {
+      
       //updating body
       noteUpdate(selectedNote.id, {
         id: selectedNote.id,
         title: selectedNote.title,
         body: nbody,
-      });
+      }); 
+      console.log('body updated');
     }
 
     if (newtitle && !newbody) {
@@ -88,12 +98,13 @@ export default function EditorComponent({
         title: newtitle,
         body: selectedNote.body,
       });
+      console.log('title updated');
     }
   });
 
 
   //render
-  if (id) {
+  if (selectedNote.id) {
     return (
       <div className={classNameForSize + isDarkMode}>
         <BorderColorIcon className="editIcon"></BorderColorIcon>
@@ -110,18 +121,18 @@ export default function EditorComponent({
         
         {selectedNote.body.map((block, index) => {
           return (
-            <CustomQuill
-            key = {index} 
+              <CustomQuill
+              key = {index} 
               index = {index}
               body={block}
               updateBody={updateBody}
               deleteBlock={deleteBlock}
               isDarkMode={isDarkMode}
-            />
+              />
           );
         })} 
          
-        <div onClick={addBlock}>NEW BLOCK - CLICK HERE</div> 
+        <div className='addNewBlock' onClick={addBlock}><AddIcon/><CreateIcon/></div> 
         {/* calse 1 : if body has no block => wanna make this body[0] */}
         {/* case 2: else body[body.length]   //[a,b ,c] body[3] */}
         {/* <CustomQuill
